@@ -1,0 +1,187 @@
+# 📄 Functional Requirements Document  
+**Project Title**: SmartOrgSuite: Real-Time Department Task Manager  
+**Client**: OmegaCorp Pvt. Ltd.  
+**Prepared by**: [Client Representative / CEO, OmegaCorp]  
+**Requested Developer**: [You]  
+
+---
+
+## 🏢 1. Business Background
+
+OmegaCorp operates with a multi-departmental structure, consisting of Administrative, Human Resources, and Technology departments. Our current workflow is **manual, fragmented, and inefficient**. Task assignment is done over emails or spreadsheets, and employee accountability is difficult to track. There's **no centralized visibility into who is doing what, or whether tasks are being completed on time**.
+
+We require a **Java-based desktop console application** that enables **automated task assignment, real-time execution simulation, employee tracking**, and **log generation**—all with smooth performance and scalability in mind.
+
+---
+
+## 🚨 2. Key Pain Points
+
+- 🔁 Task assignments are delayed and often duplicated
+- 😓 Departments have inconsistent workflows
+- 🚥 Employees are idle or overloaded without visibility
+- 🔎 There is no log to track task execution or delays
+- 💥 No way to detect unassigned tasks or missed deadlines
+- ⚙️ Current process is not scalable or audit-friendly
+
+---
+
+## 🎯 3. Project Objective
+
+Design and develop a Java application that:
+- Automates the assignment of tasks to employees in different departments
+- Simulates task execution in **real-time using multithreading**
+- **Logs all activities to a file** for future auditing
+- Displays output in a user-friendly, CLI-based interface
+- Uses **Java 17 features** and solid OOP principles to ensure scalability
+
+---
+
+## 🧠 4. System Overview
+
+The system should:
+- Allow pre-defined employees and departments
+- Load or accept tasks manually or programmatically
+- Assign tasks based on employee availability and department type
+- Simulate task execution using threads
+- Write task lifecycle events to a log file
+- Provide a dashboard view via console for admins
+
+---
+
+## 👤 5. User Roles and Responsibilities
+
+### 🧑‍💼 Admin Department
+- Reviews documents, processes office approvals
+- Gets tasks like "Process ID cards", "Clear pending files"
+- Executes tasks that typically have short turnaround times
+
+### 🧑‍💼 HR Department
+- Handles hiring, timesheets, leave requests
+- Tasks include "Conduct onboarding", "Review timesheet"
+- Work is mid-priority and often involves activity-based triggers
+
+### 👨‍💻 Tech Department
+- Engineers work on coding, bug-fixing, tech stack updates
+- Tasks are time-consuming and high priority
+- "Complete Module 2", "Fix login issue", "Deploy to staging"
+
+---
+
+## 💼 6. Functional Requirements
+
+### 6.1 Department Setup
+- Departments are defined using an abstract class and interface.
+- Each department overrides task-handling behavior.
+- Base class provides:
+  - `getDepartmentName()`
+  - `getWorkingHours()`
+  - `isTodayHoliday()`
+
+### 6.2 Employee Management
+- Employee objects are created with:
+  - ID, Name, Department
+- Stored using a `HashMap<String, Employee>` for quick lookup
+- Each employee has a list of assigned tasks (using `List<Task>`)
+
+### 6.3 Task Management
+- Task entity has:
+  - Task ID, Description, Department, Deadline, Assigned Employee, Status
+- Tasks are queued using `Queue<Task>`
+- Assigned based on department and load balancing
+- Managed by `TaskManager` class using Java Collections
+
+### 6.4 Task Execution
+- Uses `ExecutorService` to simulate real-time task handling
+- Each department runs in parallel thread
+- Each task has a sleep time based on difficulty (simulating time to complete)
+- On completion, status is updated and log is generated
+
+### 6.5 Error Handling
+- Throw `InvalidTaskException` if task data is missing
+- Handle edge cases:
+  - Employee not found
+  - Department mismatch
+  - Task already assigned
+
+### 6.6 File Logging
+- Every task lifecycle event (assign, start, complete, fail) is written to:
+- Format: `[timestamp] [employee] [task] [status]`
+- Use `FileWriter`, `BufferedWriter`, or Java `Logger`
+
+---
+
+## 💾 7. Technical Requirements
+
+| Component       | Technology        |
+|-----------------|------------------|
+| Language         | Java 17 LTS      |
+| Build Tool       | Maven            |
+| IDE              | Eclipse / IntelliJ |
+| Version Control  | Git + GitHub     |
+| Testing          | JUnit 5          |
+| Logging          | FileWriter / Logger |
+| Deployment       | GitHub repo with README and screenshots |
+
+---
+
+## 📊 8. Business Logic Examples
+
+- Assign Task:
+- If task is for "Tech", assign to next available Tech employee.
+- Use a round-robin or least-loaded approach.
+
+- Execute Task:
+- Thread pool (size = number of departments) processes one task at a time per department.
+- Task changes from PENDING → IN_PROGRESS → COMPLETED
+
+- Error:
+- If a department receives a task it doesn't handle, log error and skip.
+
+- Deadline:
+- If deadline is past current system time, mark task as FAILED.
+
+---
+
+## 🎨 9. UX Expectations
+
+- Console should print:
+- Task assigned, task started, task completed
+- Department-wise views
+- Summary stats at end of session
+- Log file should be clean, formatted, and timestamped
+
+---
+
+## 📈 10. Future Enhancements (Optional / Phase 2)
+
+- GUI Interface (JavaFX)
+- JSON-based data import/export
+- REST API backend integration
+- Email notifications for task failures
+
+---
+
+## ✅ 11. Acceptance Criteria
+
+- All departments and employees initialized on start
+- Minimum 10 tasks executed across all departments
+- Logs created and updated live
+- Console interaction is smooth and clean
+- Code pushed to GitHub with README.md
+- LinkedIn post summarizes tech + learning
+
+---
+
+## 📅 Timeline
+
+| Task                      | Deadline |
+|---------------------------|----------|
+| Requirement Finalization  | Day 1 Morning |
+| Code Implementation       | Day 1–2 |
+| Testing & Logging         | Day 2 Morning |
+| GitHub Push + README      | Day 2 Afternoon |
+| LinkedIn Post             | Day 2 Evening |
+
+---
+
+**End of Document**
