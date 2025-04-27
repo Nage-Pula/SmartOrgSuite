@@ -24,10 +24,25 @@ public class MainApp {
 			Task t1 = new Task("T001", "Fix backend bug", "Tech", LocalDateTime.now().plusDays(1));
 			Task t2 = new Task("T002", "Conduct interview", "HR", LocalDateTime.now().plusDays(1));
 			Task t3 = new Task("T003", "Organize files", "Admin", LocalDateTime.now().plusDays(1));
+			Task t4 = new Task("T004", "Fix frontend bug", "Tech", LocalDateTime.now().plusDays(1));
+			Task t5 = new Task("T005", "Prepare report", "HR", LocalDateTime.now().plusDays(1));
+			Task t6 = new Task("T006", "Update database", "Tech", LocalDateTime.now().plusDays(1));
+			Task t7 = new Task("T007", "Schedule meeting", "Admin", LocalDateTime.now().plusDays(1));
+			Task t8 = new Task("T008", "Design UI", "Tech", LocalDateTime.now().plusDays(1));
+			Task t9 = new Task("T009", "Create presentation", "HR", LocalDateTime.now().plusDays(1));
+			Task t10 = new Task("T010", "Manage inventory", "Admin", LocalDateTime.now().plusDays(1));
+			
 
 			taskManager.addTask(t1);
 			taskManager.addTask(t2);
 			taskManager.addTask(t3);
+			taskManager.addTask(t4);
+			taskManager.addTask(t5);
+			taskManager.addTask(t6);
+			taskManager.addTask(t7);
+			taskManager.addTask(t8);
+			taskManager.addTask(t9);
+			taskManager.addTask(t10);
 			//Assign tasks to employees
 
 			taskManager.assignTasks();
